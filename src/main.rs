@@ -1,11 +1,9 @@
-use dotenv::dotenv;
 use std::collections::HashMap;
 use std::env;
 use std::io::{Read, Write};
 use std::net::TcpListener;
 
 fn main() {
-    dotenv().ok();
     let port = env::var("PING_LISTEN_PORT").unwrap_or_else(|_| "8080".to_string());
     let listener = TcpListener::bind(format!("127.0.0.1:{}", port))
         .expect("Impossible de démarrer le serveur");

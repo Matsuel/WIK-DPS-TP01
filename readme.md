@@ -11,17 +11,17 @@ git clone https://github.com/Matsuel/WIK-DPS-TP01
 cd WIK-DPS-TP01
 cargo build
 ```
-```bash
-cargo run
-```
 
 ## Utilisation
 
-### 1 Créer un fichier .env à la racine du projet
+### 1 Variables d'environnement
 ```
-PING_LISTEN_PORT=VOTRE_PORT
+ export "PING_LISTEN_PORT=VOTRE_PORT" && cargo run
 ```
 *Si aucune valeur n'est renseignée, le port aura comme valeur 8080*
+```
+ cargo run
+```
 
 ### 2 Seule route est disponible : GET /ping
 - Le serveur renvoie la liste des headers de la requête sous forme de JSON
