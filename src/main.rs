@@ -41,10 +41,8 @@ fn main() {
 
 fn get_headers(request: &str) -> HashMap<String, String> {
     let mut headers = HashMap::new();
-    let lines: Vec<&str> = request.lines().collect();
 
-    for line in &lines[1..] {
-        // Ignore la première ligne (GET /ping HTTP/1.1)
+    for line in request.lines() {
         if line.is_empty() {
             break;
         }
