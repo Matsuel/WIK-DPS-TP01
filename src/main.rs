@@ -66,10 +66,19 @@ fn format_as_json(headers: &HashMap<String, String>) -> String {
         if !first {
             json.push(',');
         }
-        json.push_str(&format!("\"{}\":\"{}\"", key, value));
+        json.push_str(&format!("\"{}\":\"{}\"", escape_json_string(key), escape_json_string(value)));
         first = false;
     }
 
     json.push('}');
     json
+}
+
+fn escape_json_string(input: &str) -> String {
+    input
+        .replace('\\', "\\\\")
+        .replace('"', "\\\"")
+        .replace('\n', "\\n")
+        .replace('\r', "\\r")
+        .replace('\t', "\\t")
 }
