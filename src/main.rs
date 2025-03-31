@@ -5,10 +5,10 @@ use std::net::TcpListener;
 
 fn main() {
     let port = env::var("PING_LISTEN_PORT").unwrap_or_else(|_| "8080".to_string());
-    let listener = TcpListener::bind(format!("127.0.0.1:{}", port))
+    let listener = TcpListener::bind(format!("0.0.0.0:{}", port))
         .expect("Impossible de démarrer le serveur");
 
-    println!("Serveur démarré sur http://127.0.0.1:{}", port);
+    println!("Serveur démarré sur http://0.0.0.0:{}", port);
 
     for stream in listener.incoming() {
         let mut stream = stream.expect("Erreur lors de l'acceptation de la connexion");
