@@ -37,3 +37,23 @@ curl -X GET http://localhost:8080/pong -> 404 Not Found
 ### 3 Réponses possibles
 - 200 OK : La requête a été traitée avec succès
 - 404 Not Found : La ressource demandée n'a pas été trouvée (route inexistante ou méthode HTTP incorrecte)
+
+
+## Docker
+
+### Build en une étape
+
+```bash
+docker build -t apirust -f .\Step1.Dockerfile .
+docker run -p 8080:8080 apirust
+```
+
+[Analyse de l'image Docker avec Docker Scout](1.md)
+
+### Build multi-étapes
+```bash
+docker build -t apirust -f .\Step2.Dockerfile .
+docker run -p 8080:8080 apirust
+```
+
+[Analyse de l'image Docker avec Docker Scout](2.md)
