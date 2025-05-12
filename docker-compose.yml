@@ -1,0 +1,19 @@
+services:
+  tp02:
+    build:
+      context: .
+      dockerfile: Step2.Dockerfile
+    environment:
+      - PING_LISTEN_PORT=8080
+    deploy:
+      replicas: 4
+  
+  nginx:
+    image: nginx:latest
+    container_name: tp02-nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - tp02
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf

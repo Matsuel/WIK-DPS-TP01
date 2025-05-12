@@ -10,6 +10,9 @@ fn main() {
 
     println!("Serveur démarré sur http://0.0.0.0:{}", port);
 
+    let hostname = get_hostname();
+    println!("Hostname: {}", hostname);
+
     for stream in listener.incoming() {
         let mut stream = stream.expect("Erreur lors de l'acceptation de la connexion");
 
@@ -20,6 +23,10 @@ fn main() {
             if request.starts_with("GET /ping ") {
                 let headers = get_headers(&request);
                 let json_headers = format_as_json(&headers);
+
+                println!("Requpingête reçue sur /ping (hostname: {})", hostname);
+
+
                 let response = format!(
                     "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {}\r\n\r\n{}",
                     json_headers.len(),
@@ -81,4 +88,11 @@ fn escape_json_string(input: &str) -> String {
         .replace('\n', "\\n")
         .replace('\r', "\\r")
         .replace('\t', "\\t")
+}
+
+fn get_hostname() -> String {
+    std::fs::read_to_string("/etc/hostname")
+        .unwrap_or_else(|_| "unknown".to_string())
+        .trim()
+        .to_string()
 }
